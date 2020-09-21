@@ -1,9 +1,8 @@
-﻿#include <iostream>
-#include <vector>	
-#include <queue>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
 #include <algorithm>
-#include <string>
 #include <cstring>
+#include <cstdlib>
 
 
 using namespace std;
@@ -11,14 +10,14 @@ using namespace std;
 
 int main() {
 
-	char day[3];
+	char day[4];
 	int date;
-	char month[3];
+	char month[4];
 	int year;
 	int hour, minute, second;
-	char time_zone[3];
+	char time_zone[6];
 
-	scanf("%3s, %2d %3s %d %d:%d:%d %s", day, date, month, year, hour, minute, second, time_zone);
+	scanf("%3s, %2d %3s %d %d:%d:%d %s", day, &date, month, &year, &hour, &minute, &second, time_zone);
 
 	int day_number;
 	if (strcmp(day, "MON") == 0) {
@@ -96,32 +95,61 @@ int main() {
 		year_number = year;
 	}
 
-	int time_zone_number;
+	int time_zone_hour, time_zone_minute;
 	if (strcmp(time_zone, "UT") == 0) {
-		time_zone_number = 0;
+		time_zone_hour = 0;
+		time_zone_minute = 0;
 	}
 	else if (strcmp(time_zone, "GMT") == 0) {
-		time_zone_number = 0;
+		time_zone_hour = 0;
+		time_zone_minute = 0;
 	}
 	else if (strcmp(time_zone, "EDT") == 0) {
-		time_zone_number = -4;
+		time_zone_hour = -4;
+		time_zone_minute = 0;
 	}
 	else if (strcmp(time_zone, "CDT") == 0) {
-		time_zone_number = -5;
+		time_zone_hour = -5;
+		time_zone_minute = 0;
 	}
 	else if (strcmp(time_zone, "MDT") == 0) {
-		time_zone_number = -6;
+		time_zone_hour = -6;
+		time_zone_minute = 0;
 	}
 	else if (strcmp(time_zone, "PDT") == 0) {
-		time_zone_number = -7;
+		time_zone_hour = -7;
+		time_zone_minute = 0;
 	}
 	else {
-		cout << "time_zone_error" << endl;
+
+		int time_zone_number = atoi(time_zone);
+		time_zone_hour = time_zone_number / 100;
+		time_zone_minute = time_zone_number % 100;
+
 	}
 
 	/*start calculating*/
 
-	hour += (3 - time_zone_number);
+	if (time_zone_minute != 0) {
+		if (time_zone_hour < 0) {
+			minute += time_zone_minute;
+		}
+		else {
+			minute -= time_zone_minute;
+		}
+	}
+
+	if (minute < 0) {
+		minute += 60;
+		hour--;
+	}
+	if (minute >= 60) {
+		minute -= 60;
+		hour++;
+	}
+
+	hour += (3 - time_zone_hour);
+
 	if (hour >= 24) {
 		day_number += 1;
 		date += 1;
@@ -157,7 +185,7 @@ int main() {
 	else if (month_number == 2) {
 
 		if (year % 4 == 0 && year % 100 != 0) {
-			month_total_date == 29;
+			month_total_date = 29;
 		}
 		else if (year % 400 == 0) {
 			month_total_date = 29;
@@ -203,7 +231,7 @@ int main() {
 		else if (month_number == 2) {
 
 			if (year % 4 == 0 && year % 100 != 0) {
-				date == 29;
+				date = 29;
 			}
 			else if (year % 400 == 0) {
 				date = 29;
@@ -224,7 +252,7 @@ int main() {
 	}
 
 	/*starting output*/
-	switch (month_number)
+	switch (day_number)
 	{
 	case 1:
 		cout << "MON";
@@ -254,5 +282,74 @@ int main() {
 	}
 
 	cout << ", ";
+
+	if (date < 10) {
+		cout << 0;
+	}
+
+	cout << date << " ";
+
+	switch (month_number)
+	{
+
+	case 1:
+		cout << "JAN";
+		break;
+	case 2:
+		cout << "FEB";
+		break;
+	case 3:
+		cout << "MAR";
+		break;
+	case 4:
+		cout << "APR";
+		break;
+	case 5:
+		cout << "MAY";
+		break;
+	case 6:
+		cout << "JUN";
+		break;
+	case 7:
+		cout << "JUL";
+		break;
+	case 8:
+		cout << "AUG";
+		break;
+	case 9:
+		cout << "SEP";
+		break;
+	case 10:
+		cout << "OCT";
+		break;
+	case 11:
+		cout << "NOV";
+		break;
+	case 12:
+		cout << "DEC";
+		break;
+
+	default:
+		cout << "Month error!";
+		break;
+	}
+
+	cout << " " << year_number << " ";
+
+
+	if (hour < 10) {
+		cout << 0;
+	}
+	cout << hour << ":";
+
+	if (minute < 10) {
+		cout << 0;
+	}
+	cout << minute << ":";
+
+	if (second < 10) {
+		cout << 0;
+	}
+	cout << second << " +3000";
 	return 0;
 }
