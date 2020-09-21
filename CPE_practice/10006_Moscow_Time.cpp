@@ -184,10 +184,10 @@ int main() {
 	}
 	else if (month_number == 2) {
 
-		if (year % 4 == 0 && year % 100 != 0) {
+		if (year_number % 4 == 0 && year_number % 100 != 0) {
 			month_total_date = 29;
 		}
-		else if (year % 400 == 0) {
+		else if (year_number % 400 == 0) {
 			month_total_date = 29;
 		}
 		else {
@@ -207,7 +207,7 @@ int main() {
 		if (month_number > 12) {
 
 			month_number -= 12;
-			year += 1;
+			year_number += 1;
 
 		}
 	}
@@ -217,7 +217,7 @@ int main() {
 		if (month_number < 1) {
 
 			month_number += 12;
-			year -= 1;
+			year_number -= 1;
 
 		}
 
@@ -230,10 +230,10 @@ int main() {
 		}
 		else if (month_number == 2) {
 
-			if (year % 4 == 0 && year % 100 != 0) {
+			if (year_number % 4 == 0 && year_number % 100 != 0) {
 				date = 29;
 			}
-			else if (year % 400 == 0) {
+			else if (year_number % 400 == 0) {
 				date = 29;
 			}
 			else {
