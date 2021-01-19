@@ -130,124 +130,127 @@ int main() {
 
 	/*start calculating*/
 
-	if (time_zone_minute != 0) {
-		if (time_zone_hour < 0) {
-			minute += time_zone_minute;
+
+	minute += (0 - time_zone_minute);
+	while (1) {
+		if (minute < 0) {
+			minute += 60;
+			hour--;
+		}
+		else if (minute >= 60) {
+			minute -= 60;
+			hour++;
 		}
 		else {
-			minute -= time_zone_minute;
+			break;
 		}
 	}
-
-	if (minute < 0) {
-		minute += 60;
-		hour--;
-	}
-	if (minute >= 60) {
-		minute -= 60;
-		hour++;
-	}
-
 	hour += (3 - time_zone_hour);
 
-	if (hour >= 24) {
-		day_number += 1;
-		date += 1;
-		hour -= 24;
+	while (1) {
+		if (hour >= 24) {
+			day_number += 1;
+			date += 1;
+			hour -= 24;
+		}
+		else if (hour < 0) {
+			day_number -= 1;
+			hour += 24;
+			date -= 1;
+		}
+		else {
+			break;
+		}
 	}
-	else if (hour < 0) {
-		day_number -= 1;
-		hour += 24;
-		date -= 1;
-	}
-	else {
-
-	}
-
-	if (day_number > 7) {
-		day_number -= 7;
-	}
-	else if (day_number < 1) {
-		day_number += 7;
-	}
-	else {
-
+	while (1) {
+		if (day_number > 7) {
+			day_number -= 7;
+		}
+		else if (day_number < 1) {
+			day_number += 7;
+		}
+		else {
+			break;
+		}
 	}
 
 	int month_total_date;
-	if (month_number == 1 || month_number == 3 || month_number == 5
-		|| month_number == 7 || month_number == 8 || month_number == 10
-		|| month_number == 12) {
-
-		month_total_date = 31;
-
-	}
-	else if (month_number == 2) {
-
-		if (year_number % 4 == 0 && year_number % 100 != 0) {
-			month_total_date = 29;
-		}
-		else if (year_number % 400 == 0) {
-			month_total_date = 29;
-		}
-		else {
-			month_total_date = 28;
-		}
-
-	}
-	else {
-
-		month_total_date = 30;
-
-	}
-
-	if (date > month_total_date) {
-		date -= month_total_date;
-		month_number++;
-		if (month_number > 12) {
-
-			month_number -= 12;
-			year_number += 1;
-
-		}
-	}
-	else if (date < 1) {
-
-		month_number--;
-		if (month_number < 1) {
-
-			month_number += 12;
-			year_number -= 1;
-
-		}
-
+	while (1) {
 		if (month_number == 1 || month_number == 3 || month_number == 5
 			|| month_number == 7 || month_number == 8 || month_number == 10
 			|| month_number == 12) {
 
-			date = 31;
+			month_total_date = 31;
 
 		}
 		else if (month_number == 2) {
 
 			if (year_number % 4 == 0 && year_number % 100 != 0) {
-				date = 29;
+				month_total_date = 29;
 			}
 			else if (year_number % 400 == 0) {
-				date = 29;
+				month_total_date = 29;
 			}
 			else {
-				date = 28;
+				month_total_date = 28;
 			}
 
 		}
 		else {
 
-			date = 30;
+			month_total_date = 30;
 
 		}
-	}
-	else {
+
+		if (date > month_total_date) {
+			date -= month_total_date;
+			month_number++;
+			if (month_number > 12) {
+
+				month_number -= 12;
+				year_number += 1;
+
+			}
+		}
+		else if (date < 1) {
+
+			month_number--;
+			if (month_number < 1) {
+
+				month_number += 12;
+				year_number -= 1;
+
+			}
+
+			if (month_number == 1 || month_number == 3 || month_number == 5
+				|| month_number == 7 || month_number == 8 || month_number == 10
+				|| month_number == 12) {
+
+				date = 31;
+
+			}
+			else if (month_number == 2) {
+
+				if (year_number % 4 == 0 && year_number % 100 != 0) {
+					date = 29;
+				}
+				else if (year_number % 400 == 0) {
+					date = 29;
+				}
+				else {
+					date = 28;
+				}
+
+			}
+			else {
+
+				date = 30;
+
+			}
+		}
+		else {
+			break;
+		}
 
 	}
 

@@ -14,7 +14,7 @@ int* make_failure(string& pattern) {
 	int len = 0;
 	while ( i < m ){
 
-		if (pattern[i] == pattern[m]) {
+		if (pattern[i] == pattern[len]) {
 			len++;
 			failure[i] = len;
 			i++;
@@ -35,7 +35,7 @@ int* make_failure(string& pattern) {
 	return failure;
 }
 
-int KMS_search(string& target, string& pattern) {
+int KMP_search(string& target, string& pattern) {
 
 	int n = target.size();
 	int m = pattern.size();
@@ -82,7 +82,7 @@ int main() {
 		string pattern(target);
 		reverse(pattern.begin(), pattern.end());
 
-		int j = KMS_search(target, pattern);
+		int j = KMP_search(target, pattern);
 		string ans(target);
 		for (int i = j; i < pattern.size(); i++) {
 			ans += pattern[i];
