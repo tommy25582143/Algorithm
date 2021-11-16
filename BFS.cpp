@@ -17,11 +17,7 @@ struct Graph
 		adjlist[from].push_back(to);
 		return;
 	}
-	void print() {
-		for (int i = 0; i < n; i++) {
-			cout << predecessor[i] << " ";
-		}
-	}
+
 	void BFS(int start);
 	int n;
 	vector<vector<int>>adjlist;
@@ -100,7 +96,6 @@ int main()
 	g1.AddEdgeList(8, 5); 
 	g1.AddEdgeList(8, 6);
 	g1.BFS(0);
-	g1.print();
 	return 0;
 }
 
